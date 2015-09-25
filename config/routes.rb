@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'session/new'
+
 #User signup here
  # get 'users/new'
 get 'signup' => 'users#new'
@@ -12,6 +14,12 @@ get 'help' => 'static_pages#help'
 get 'about' => 'static_pages#about'
 # get  'static_pages/contact'
 get 'contact' => 'static_pages#contact'
+
+
+#here is router for login-out
+get 'login' => 'session#new'
+post 'login' => 'session#create'
+delete 'logout' => 'session#destroy'
 
 resources :users
 
