@@ -25,10 +25,14 @@ class UsersController < ApplicationController
  # 	@user = User.new(params[:user])    # Not the final implementation!
  @user = User.new(user_params)
     if @user.save
-      log_in @user    #login if register successful
-    	flash[:success] = "Welcome to the Sample App!"
-    	redirect_to @user
+     #  log_in @user    #login if register successful
+    	# flash[:success] = "Welcome to the Sample App!"
+    	# redirect_to @user
       # Handle a successful save.
+      @user.send_activation_email
+     # UserMailer.account_activation(@user).deliver_now
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end
@@ -81,5 +85,6 @@ end
       redirect_to(root_url) unless current_user.admin?
     end
 
+    # Returns true if the given token matches the digest.
 
 end
